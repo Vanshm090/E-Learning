@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <a href="../index.html" class="back-link">Back to Home</a>
+                <h2>All Courses</h2>
+            </div>
+            <button id="create-course" class="action-button">Create Course</button>
+        </div>
+        <div class="form-container" id="form-container" style="display:none;">
+            <input type="text" id="title" placeholder="Title" required>
+            <textarea id="description" placeholder="Description" required></textarea>
+            <input type="number" id="numberOfLectures" placeholder="Number of Lectures" required>
+            <input type="text" id="category" placeholder="Category" required>
+            <input type="text" id="createdBy" placeholder="Created By" required>
+            <input type="file" id="thumbnail" required>
+            <button class="action-button" id="submit-course">Submit</button>
+        </div>
+        <div id="courses-list">
+            <!-- Courses will be loaded here -->
+        </div>
+    </div>
+    
+    <script src="./script1.js"></script>
+    <script src="./script2.js"></script>
+    <script src="./script3.js"></script>
+</body>
+
+</html>

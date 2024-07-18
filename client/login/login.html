@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>E-Learning Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <div>
+                    <label for="email">Email</label>
+                </div>
+                <div>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <label for="password">Password</label>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Password" />
+                </div>
+                <button type="submit" id="submit">Log in</button>
+            </div>
+            <div class="links">
+                <a href="#">Forgot Password</a>
+                <span> </span>
+                <a href="../Signup/signup.html"> Signup</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        const formSubmit = document.getElementById("submit");
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const UserEmail = document.getElementById('email').value;
+            const userPassword = document.getElementById('password').value;
+
+            if (!UserEmail || !userPassword) {
+                alert('All fields are required');
+                return;
+            }
+
+            const userData = {
+                email: UserEmail,
+                password: userPassword,
+            };
+            loginUser(userData);
+        });
+
+        const loginUser = async (payload) => {
+            try {
+                const result = await fetch('http://localhost:5001/api/v1/users/login', {
+                    method: 'POST',
+                    credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                const res_data = await result.json();
+                console.log('resp_data from server:', res_data);
+
+                if (res_data.success) {
+                    localStorage.setItem('token', res_data.token);
+                    localStorage.setItem('userRole', res_data.user.role);
+                    alert('LOGIN SUCCESSFUL');
+                    setTimeout(() => {
+                        window.location.href = "http://127.0.0.1:5500/client/index.html";
+                    }, 500);
+                } else {
+                    alert('Login failed: ' + (res_data.message || 'Unknown error'));
+                }
+
+            } catch (error) {
+                console.log('Error:', error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
